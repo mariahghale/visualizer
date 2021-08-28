@@ -1,0 +1,70 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="EditorWindow.uss" />
+    <ui:VisualElement name="screen" style="flex-grow: 1; flex-direction: row; align-items: center; justify-content: flex-end; border-top-left-radius: 0.25px; border-bottom-left-radius: 0.25px; border-top-right-radius: 0.25px; border-bottom-right-radius: 0.25px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;">
+        <ui:VisualElement name="editor" style="width: 30%; height: 60%; flex-direction: column; background-color: rgba(12, 12, 12, 0.58); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(43, 43, 43); border-right-color: rgb(43, 43, 43); border-top-color: rgb(43, 43, 43); border-bottom-color: rgb(43, 43, 43); border-top-left-radius: 7px; border-bottom-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px;">
+            <ui:VisualElement name="objSelectBar" style="flex-direction: row; align-items: center; justify-content: space-around; flex-grow: 0.33; width: 100%; height: 20%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+                <ui:Button display-tooltip-when-elided="true" name="meshBtn" class="object-type-button" style="width: auto; flex-grow: 0; min-width: 25%;" />
+                <ui:Button display-tooltip-when-elided="true" name="camBtn" class="main-obj-button object-type-button" style="background-image: url(&apos;/Assets/GUI/icons/cameraIcon.png&apos;); flex-grow: 0; min-width: 25%;" />
+                <ui:Button display-tooltip-when-elided="true" name="lightBtn" class="object-type-button" style="background-image: url(&apos;/Assets/GUI/icons/lightBulb.png&apos;); flex-grow: 0; min-width: 25%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="detailsPane" style="flex-grow: 1; flex-direction: column; padding-left: 10px; padding-right: 10px; padding-top: 5px; padding-bottom: 5px;">
+                <ui:VisualElement name="transformEditor" style="flex-direction: column; align-items: flex-start; justify-content: center; width: 100%; padding-top: 5px; padding-bottom: 5px;">
+                    <ui:Label text="Position" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); font-size: 10%;" />
+                    <ui:VisualElement name="tEditComponents" style="flex-direction: row; justify-content: center; align-items: center; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; height: 100%; width: 100%; font-size: 12px; -unity-slice-top: 0; -unity-slice-bottom: 0;">
+                        <ui:VisualElement name="diyTextField" class="diy-text-field" style="width: auto;">
+                            <ui:Label text="x" display-tooltip-when-elided="true" name="tComp" style="flex-direction: row; color: rgb(255, 255, 255); font-size: 10px;" />
+                            <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" style="font-size: 8px;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="diyTextField" class="diy-text-field" style="width: auto;">
+                            <ui:Label text="y" display-tooltip-when-elided="true" name="tComp" style="flex-direction: row; color: rgb(255, 255, 255); font-size: 10px;" />
+                            <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" style="font-size: 8px;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="diyTextField" class="diy-text-field" style="width: auto;">
+                            <ui:Label text="z" display-tooltip-when-elided="true" name="tComp" style="flex-direction: row; color: rgb(255, 255, 255); font-size: 10px;" />
+                            <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" style="font-size: 8px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="transformEditor" style="flex-direction: column; align-items: flex-start; justify-content: center; width: 100%; padding-top: 5px; padding-bottom: 5px;">
+                    <ui:Label text="Rotation" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); font-size: 10px;" />
+                    <ui:VisualElement name="tEditComponents" style="flex-direction: row; justify-content: center; align-items: center; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; height: 100%; width: 100%; font-size: 12px; -unity-slice-top: 0; -unity-slice-bottom: 0;">
+                        <ui:VisualElement name="diyTextField" class="diy-text-field" style="width: auto;">
+                            <ui:Label text="x" display-tooltip-when-elided="true" name="tComp" style="flex-direction: row; color: rgb(255, 255, 255); font-size: 10px;" />
+                            <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" style="font-size: 8px;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="diyTextField" class="diy-text-field" style="width: auto;">
+                            <ui:Label text="y" display-tooltip-when-elided="true" name="tComp" style="flex-direction: row; color: rgb(255, 255, 255); font-size: 10px;" />
+                            <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" style="font-size: 8px;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="diyTextField" class="diy-text-field" style="width: auto;">
+                            <ui:Label text="z" display-tooltip-when-elided="true" name="tComp" style="flex-direction: row; color: rgb(255, 255, 255); font-size: 10px;" />
+                            <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" style="font-size: 8px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="transformEditor" style="flex-direction: column; align-items: flex-start; justify-content: center; width: 100%; padding-top: 5px; padding-bottom: 5px;">
+                    <ui:Label text="Scale" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); font-size: 10px;" />
+                    <ui:VisualElement name="tEditComponents" style="flex-direction: row; justify-content: center; align-items: center; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; height: 100%; width: 100%; font-size: 12px; -unity-slice-top: 0; -unity-slice-bottom: 0;">
+                        <ui:VisualElement name="diyTextField" class="diy-text-field" style="width: auto;">
+                            <ui:Label text="x" display-tooltip-when-elided="true" name="tComp" style="flex-direction: row; color: rgb(255, 255, 255); font-size: 10px;" />
+                            <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" style="font-size: 8px;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="diyTextField" class="diy-text-field" style="width: auto;">
+                            <ui:Label text="y" display-tooltip-when-elided="true" name="tComp" style="flex-direction: row; color: rgb(255, 255, 255); font-size: 10px;" />
+                            <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" style="font-size: 8px;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="diyTextField" class="diy-text-field" style="width: auto;">
+                            <ui:Label text="z" display-tooltip-when-elided="true" name="tComp" style="flex-direction: row; color: rgb(255, 255, 255); font-size: 10px;" />
+                            <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" style="font-size: 8px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="spacer" style="flex-grow: 1;">
+                    <ui:Label text="Mesh Select: " display-tooltip-when-elided="true" style="color: rgb(255, 249, 249);" />
+                    <ui:Label text="Material Select:" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
+                    <ui:Label text="Texture Select:" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
