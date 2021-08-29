@@ -14,9 +14,10 @@ public class MeshEditor : BaseEditor
     private Dictionary<string, Material> materials = new Dictionary<string, Material>();
     private Dictionary<string, GameObject> meshes = new Dictionary<string, GameObject>();
 
+    private Vector3 meshPos = new Vector3(0.0f, -.8f, 3.0f);
     private Dictionary<string, GameObject> cachedObjects = new Dictionary<string, GameObject>();
     private GameObject activeMesh = null;
-    private Vector3 meshPos = new Vector3(0.0f, -.8f, 3.0f);
+    private Material activeMat = null;
 
 
     public override void setupGui()
@@ -65,7 +66,16 @@ public class MeshEditor : BaseEditor
             this.onMatSelection(this.matDropdown);
         });
 
+        this.texDropdown.onValueChanged.AddListener(delegate{
+            this.onTexSelection(this.texDropdown);
+        });
+    
         this.texDropdown.AddOptions(texStrs);
+
+        this.texDropdown.value = 2;
+        this.matDropdown.value = 2;
+        this.meshDropdown.value = 2;
+        this.onMeshSelection(this.meshDropdown);
     }
 
 
@@ -92,24 +102,34 @@ public class MeshEditor : BaseEditor
             activeMesh.SetActive(false);
         }
         activeMesh = mesh;
+
+        this.onMatSelection(this.matDropdown);
     }
 
     private void onMatSelection(Dropdown dropdown)
     {
         string selectedMat = dropdown.captionText.text;
         Material mat = this.materials[selectedMat];
-        activeMesh.GetComponent<MeshRenderer>().material = mat;
+        if (this.activeMesh != null)
+        {
+            this.activeMesh.GetComponent<MeshRenderer>().material = mat;
+        }
+        this.activeMat = mat;
+        this.onTexSelection(this.texDropdown);
     }
 
-    private void onTexSelection()
+    private void onTexSelection(Dropdown dropdown)
     {
+        string selectedText = dropdown.captionText.text;
+        Texture2D texture = this.textures[selectedText];
+        
+        if (this.activeMesh != null)
+        {
+            Material material = this.activeMesh.GetComponent<MeshRenderer>().material;
+            Debug.Log(material);
+            Debug.Log(material.name);
+            material.mainTexture = texture;
 
-
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
+        }
     }
 }
