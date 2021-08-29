@@ -4,15 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class MeshEditor : BaseEditor
+public class MeshEditor : TransformEditor
 {
     public Dropdown meshDropdown;
     public Dropdown matDropdown;
     public Dropdown texDropdown;
-
-    public VecEditor posEdit;
-    public VecEditor rotEdit;
-    public VecEditor scaleEdit;
 
     private Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
     private Dictionary<string, Material> materials = new Dictionary<string, Material>();
@@ -20,26 +16,27 @@ public class MeshEditor : BaseEditor
 
     private Vector3 meshPos = new Vector3(0.0f, -.8f, 3.0f);
     private Dictionary<string, GameObject> cachedObjects = new Dictionary<string, GameObject>();
-    private GameObject activeMesh = null;
-    private Material activeMat = null;
+    private Material activeMat;
+    private GameObject activeMesh;
 
+
+    public void setupDefaults()
+    {
+       onMeshSelection(meshDropdown);
+       setupDefaultVals();
+    }
 
     public override void setupGui()
     {   
-        // set up the vector gui callbacks
-        posEdit.vecEditDel += onPosChange;
-        rotEdit.vecEditDel += onRotChange;
-        scaleEdit.vecEditDel += onScaleChange;
-
         // populate the asset dropdowns
         Object[] texObjs = Resources.LoadAll("FreeSwords/Textures", typeof(Texture2D));
         List<string> texStrs = new List<string>();
         foreach (Object tex in texObjs)
         {   
             bool pickableTexs = tex.name.Contains("Albedo") || tex.name.Contains("Metal");
-            if(!this.textures.ContainsKey(tex.name) && pickableTexs)
+            if(!textures.ContainsKey(tex.name) && pickableTexs)
             {
-                this.textures.Add(tex.name, (Texture2D)tex);
+                textures.Add(tex.name, (Texture2D)tex);
                 texStrs.Add(tex.name);
             }
         }
@@ -48,9 +45,9 @@ public class MeshEditor : BaseEditor
         Object[] matObjs = Resources.LoadAll("FreeSwords/Materials", typeof(Material));
         foreach (Object mat in matObjs)
         {
-            if(!this.materials.ContainsKey(mat.name))
+            if(!materials.ContainsKey(mat.name))
             {
-                this.materials.Add(mat.name, (Material)mat);
+                materials.Add(mat.name, (Material)mat);
                 matStrs.Add(mat.name);       
             }
         }
@@ -59,34 +56,35 @@ public class MeshEditor : BaseEditor
         Object[] meshObjs = Resources.LoadAll("FreeSwords/Meshes", typeof(GameObject));
         foreach (Object mesh in meshObjs)
         {
-            if(!this.meshes.ContainsKey(mesh.name))
+            if(!meshes.ContainsKey(mesh.name))
             {
                 string meshName = mesh.name.Replace("_FBX", "");
-                this.meshes.Add(meshName, (GameObject)mesh);
+                meshes.Add(meshName, (GameObject)mesh);
                 meshStrs.Add(meshName);    
             }
         }
 
         // setup callbacks for the asset dropdowns
-        this.meshDropdown.AddOptions(meshStrs);
-        this.meshDropdown.onValueChanged.AddListener(delegate{
-            this.onMeshSelection(this.meshDropdown);
+        matStrs.Sort();
+        meshStrs.Sort();
+        texStrs.Sort();
+        meshDropdown.AddOptions(meshStrs);
+        meshDropdown.onValueChanged.AddListener(delegate{
+            onMeshSelection(meshDropdown);
         });
-        this.matDropdown.AddOptions(matStrs);
-        this.matDropdown.onValueChanged.AddListener(delegate{
-            this.onMatSelection(this.matDropdown);
+        matDropdown.AddOptions(matStrs);
+        matDropdown.onValueChanged.AddListener(delegate{
+            onMatSelection(matDropdown);
         });
 
-        this.texDropdown.onValueChanged.AddListener(delegate{
-            this.onTexSelection(this.texDropdown);
+        texDropdown.onValueChanged.AddListener(delegate{
+            onTexSelection(texDropdown);
         });
     
-        this.texDropdown.AddOptions(texStrs);
+        texDropdown.AddOptions(texStrs);
 
-        this.texDropdown.value = 2;
-        this.matDropdown.value = 2;
-        this.meshDropdown.value = 2;
-        this.onMeshSelection(this.meshDropdown);
+        setupDefaults();
+        base.setupGui();
     }
 
 
@@ -97,14 +95,14 @@ public class MeshEditor : BaseEditor
         GameObject mesh;
 
         // is this cached already? just set active
-        if (this.cachedObjects.ContainsKey(selectedMesh))
+        if (cachedObjects.ContainsKey(selectedMesh))
         {
-            mesh = this.cachedObjects[selectedMesh];
+            mesh = cachedObjects[selectedMesh];
         } else
         {
-            GameObject meshTemplate = this.meshes[selectedMesh];
+            GameObject meshTemplate = meshes[selectedMesh];
             mesh = Object.Instantiate(meshTemplate, meshPos, Quaternion.identity) as GameObject;
-            this.cachedObjects.Add(selectedMesh, mesh);
+            cachedObjects.Add(selectedMesh, mesh);
         }
 
         mesh.SetActive(true);
@@ -113,47 +111,33 @@ public class MeshEditor : BaseEditor
             activeMesh.SetActive(false);
         }
         activeMesh = mesh;
+        modeTransform = activeMesh.transform;
 
-        this.onMatSelection(this.matDropdown);
+        onMatSelection(matDropdown);
     }
 
     private void onMatSelection(Dropdown dropdown)
     {
         string selectedMat = dropdown.captionText.text;
-        Material mat = this.materials[selectedMat];
-        if (this.activeMesh != null)
+        Material mat = materials[selectedMat];
+        if (activeMesh != null)
         {
-            this.activeMesh.GetComponent<MeshRenderer>().material = mat;
+            activeMesh.GetComponent<MeshRenderer>().material = mat;
         }
-        this.activeMat = mat;
-        this.onTexSelection(this.texDropdown);
+        activeMat = mat;
+        onTexSelection(texDropdown);
     }
 
     private void onTexSelection(Dropdown dropdown)
     {
         string selectedText = dropdown.captionText.text;
-        Texture2D texture = this.textures[selectedText];
+        Texture2D texture = textures[selectedText];
         
-        if (this.activeMesh != null)
+        if (activeMesh != null)
         {
-            Material material = this.activeMesh.GetComponent<MeshRenderer>().material;
+            Material material = activeMesh.GetComponent<MeshRenderer>().material;
             material.mainTexture = texture;
 
         }
-    }
-
-    public void onPosChange(Vector3 posVec)
-    {
-        activeMesh.transform.position = posVec;
-    }
-
-    public void onRotChange(Vector3 rotVec)
-    {
-        activeMesh.transform.eulerAngles = rotVec;
-    }
-
-    public void onScaleChange(Vector3 scaleVec)
-    {
-        activeMesh.transform.localScale = scaleVec;
     }
 }

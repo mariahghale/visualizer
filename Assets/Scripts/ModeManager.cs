@@ -9,14 +9,17 @@ public class ModeManager : MonoBehaviour
 {
     public GameObject btnPrefab;
     public List<ModeSpecs> modeList = new List<ModeSpecs>();
+    public string defaultModeName;
     public GameObject modeLayout;
 
     [System.Serializable]
     public class ModeSpecs
     {
+        public string name;
         public Sprite icon;
         public GameObject guiPrefab;
     }
+
 
     private Dictionary<GameObject, GameObject> modeGuis = new Dictionary<GameObject, GameObject>();
 
@@ -26,23 +29,23 @@ public class ModeManager : MonoBehaviour
         foreach(ModeSpecs spec in modeList)
         {  
             // setup the mode button
-            GameObject modeBtn = Object.Instantiate(btnPrefab, this.gameObject.transform) as GameObject;
-            modeBtn.transform.SetParent(this.modeLayout.transform);
+            GameObject modeBtn = Object.Instantiate(btnPrefab, gameObject.transform) as GameObject;
+            modeBtn.transform.SetParent(modeLayout.transform);
             modeBtn.GetComponent<Image>().sprite = spec.icon;
-            modeBtn.GetComponent<Button>().onClick.AddListener(this.onBtnClick);
+            modeBtn.GetComponent<Button>().onClick.AddListener(onBtnClick);
 
             // setup the mode GUI
-            Transform thisTransform = this.gameObject.transform;
+            Transform thisTransform = gameObject.transform;
             GameObject modeGui = Object.Instantiate(spec.guiPrefab, thisTransform) as GameObject;
-            modeGui.transform.SetParent(this.gameObject.transform);
-            modeGui.SetActive(false);
+            modeGui.transform.SetParent(gameObject.transform);
+            modeGui.SetActive(spec.name == defaultModeName);
             BaseEditor script = modeGui.GetComponent<BaseEditor>();
             if (script != null)
             {
                 script.setupGui();
             }
             // store the ui objects
-            this.modeGuis.Add(modeBtn, modeGui);
+            modeGuis.Add(modeBtn, modeGui);
         }
     }
 
@@ -50,7 +53,7 @@ public class ModeManager : MonoBehaviour
     {
         GameObject clickedBtn = EventSystem.current.currentSelectedGameObject;
         // hide/unhide the active gui based on the clicked button
-        foreach(var item in this.modeGuis)
+        foreach(var item in modeGuis)
         {
             if (item.Key == clickedBtn)
             {

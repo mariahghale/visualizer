@@ -13,6 +13,13 @@ public class VecEditor : MonoBehaviour
     public delegate void VecChangedDelegate(Vector3 vec);
     public VecChangedDelegate vecEditDel;
     
+    
+    public void setValues(Vector3 vec)
+    {
+        xEdit.text = vec.x.ToString();
+        yEdit.text = vec.y.ToString();
+        zEdit.text = vec.z.ToString();
+    }
 
     void Start()
     {
