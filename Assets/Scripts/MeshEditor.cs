@@ -16,7 +16,7 @@ public class MeshEditor : BaseEditor
 
     private Dictionary<string, GameObject> cachedObjects = new Dictionary<string, GameObject>();
     private GameObject activeMesh = null;
-    private Vector3 meshPos = new Vector3(0.0f, -.8f, 4.0f);
+    private Vector3 meshPos = new Vector3(0.0f, -.8f, 3.0f);
 
 
     public override void setupGui()
@@ -61,6 +61,10 @@ public class MeshEditor : BaseEditor
             this.onMeshSelection(this.meshDropdown);
         });
         this.matDropdown.AddOptions(matStrs);
+        this.matDropdown.onValueChanged.AddListener(delegate{
+            this.onMatSelection(this.matDropdown);
+        });
+
         this.texDropdown.AddOptions(texStrs);
     }
 
@@ -68,10 +72,9 @@ public class MeshEditor : BaseEditor
     private void onMeshSelection(Dropdown dropdown)
     {
         // hide the old mesh
-        string selectedMesh = this.meshDropdown.captionText.text;
+        string selectedMesh = dropdown.captionText.text;
         GameObject mesh;
 
-        Debug.LogFormat("LOOKING FOR {0}", selectedMesh);
         // is this cached already? just set active
         if (this.cachedObjects.ContainsKey(selectedMesh))
         {
@@ -86,16 +89,16 @@ public class MeshEditor : BaseEditor
         mesh.SetActive(true);
         if (activeMesh != null)
         {
-            Debug.LogFormat("turning off active mesh {0}", activeMesh.name);
             activeMesh.SetActive(false);
         }
         activeMesh = mesh;
-        Debug.LogFormat("ACTIVE MESH {0}", activeMesh.name);
     }
 
-    private void onMatSelection()
+    private void onMatSelection(Dropdown dropdown)
     {
-
+        string selectedMat = dropdown.captionText.text;
+        Material mat = this.materials[selectedMat];
+        activeMesh.GetComponent<MeshRenderer>().material = mat;
     }
 
     private void onTexSelection()
