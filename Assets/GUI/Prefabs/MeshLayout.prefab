@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1684563634256305916}
   - component: {fileID: 1684563634256305917}
+  - component: {fileID: 7207357783544279345}
   m_Layer: 5
   m_Name: MeshLayout
   m_TagString: Untagged
@@ -69,6 +70,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &7207357783544279345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684563634256305919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3316e2da6c66137438d4bfc87fd4ced8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshDropdown: {fileID: 5395466775678571264}
+  matDropdown: {fileID: 622814119915360365}
+  texDropdown: {fileID: 622814118493523116}
 --- !u!1 &1684563634874910357
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,6 +127,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1684563634256305916}
     m_Modifications:
+    - target: {fileID: 2289072808697989715, guid: 32db8b7677015764790871f2d360d897, type: 3}
+      propertyPath: m_Name
+      value: MatDropdown
+      objectReference: {fileID: 0}
     - target: {fileID: 4774979257938886922, guid: 32db8b7677015764790871f2d360d897, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -240,6 +260,11 @@ PrefabInstance:
 --- !u!224 &6135283563363982132 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4774979257938886922, guid: 32db8b7677015764790871f2d360d897, type: 3}
+  m_PrefabInstance: {fileID: 1684563633257060926}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &622814119915360365 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2289072808697989715, guid: 32db8b7677015764790871f2d360d897, type: 3}
   m_PrefabInstance: {fileID: 1684563633257060926}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1684563634989510810
@@ -757,6 +782,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1684563634256305916}
     m_Modifications:
+    - target: {fileID: 2289072808697989715, guid: 32db8b7677015764790871f2d360d897, type: 3}
+      propertyPath: m_Name
+      value: TexDropdown
+      objectReference: {fileID: 0}
     - target: {fileID: 4774979257938886922, guid: 32db8b7677015764790871f2d360d897, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -886,6 +915,11 @@ PrefabInstance:
 --- !u!224 &6135283565029148661 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4774979257938886922, guid: 32db8b7677015764790871f2d360d897, type: 3}
+  m_PrefabInstance: {fileID: 1684563635350046463}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &622814118493523116 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2289072808697989715, guid: 32db8b7677015764790871f2d360d897, type: 3}
   m_PrefabInstance: {fileID: 1684563635350046463}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5927383397669243741
@@ -1149,6 +1183,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1684563634256305916}
     m_Modifications:
+    - target: {fileID: 2289072808697989715, guid: 32db8b7677015764790871f2d360d897, type: 3}
+      propertyPath: m_Name
+      value: MeshDropdown
+      objectReference: {fileID: 0}
     - target: {fileID: 4774979257938886922, guid: 32db8b7677015764790871f2d360d897, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1274,5 +1312,10 @@ PrefabInstance:
 --- !u!224 &1684563634661038169 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4774979257938886922, guid: 32db8b7677015764790871f2d360d897, type: 3}
+  m_PrefabInstance: {fileID: 6135283564642392403}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5395466775678571264 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2289072808697989715, guid: 32db8b7677015764790871f2d360d897, type: 3}
   m_PrefabInstance: {fileID: 6135283564642392403}
   m_PrefabAsset: {fileID: 0}
