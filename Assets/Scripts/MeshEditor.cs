@@ -10,6 +10,10 @@ public class MeshEditor : BaseEditor
     public Dropdown matDropdown;
     public Dropdown texDropdown;
 
+    public VecEditor posEdit;
+    public VecEditor rotEdit;
+    public VecEditor scaleEdit;
+
     private Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
     private Dictionary<string, Material> materials = new Dictionary<string, Material>();
     private Dictionary<string, GameObject> meshes = new Dictionary<string, GameObject>();
@@ -22,6 +26,12 @@ public class MeshEditor : BaseEditor
 
     public override void setupGui()
     {   
+        // set up the vector gui callbacks
+        posEdit.vecEditDel += onPosChange;
+        rotEdit.vecEditDel += onRotChange;
+        scaleEdit.vecEditDel += onScaleChange;
+
+        // populate the asset dropdowns
         Object[] texObjs = Resources.LoadAll("FreeSwords/Textures", typeof(Texture2D));
         List<string> texStrs = new List<string>();
         foreach (Object tex in texObjs)
@@ -57,6 +67,7 @@ public class MeshEditor : BaseEditor
             }
         }
 
+        // setup callbacks for the asset dropdowns
         this.meshDropdown.AddOptions(meshStrs);
         this.meshDropdown.onValueChanged.AddListener(delegate{
             this.onMeshSelection(this.meshDropdown);
@@ -126,10 +137,23 @@ public class MeshEditor : BaseEditor
         if (this.activeMesh != null)
         {
             Material material = this.activeMesh.GetComponent<MeshRenderer>().material;
-            Debug.Log(material);
-            Debug.Log(material.name);
             material.mainTexture = texture;
 
         }
+    }
+
+    public void onPosChange(Vector3 posVec)
+    {
+        activeMesh.transform.position = posVec;
+    }
+
+    public void onRotChange(Vector3 rotVec)
+    {
+        activeMesh.transform.eulerAngles = rotVec;
+    }
+
+    public void onScaleChange(Vector3 scaleVec)
+    {
+        activeMesh.transform.localScale = scaleVec;
     }
 }
