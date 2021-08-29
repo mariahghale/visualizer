@@ -6,13 +6,17 @@ using UnityEngine.UI;
 
 public class MeshEditor : BaseEditor
 {
-    public GameObject meshDropdown;
-    public GameObject matDropdown;
-    public GameObject texDropdown;
+    public Dropdown meshDropdown;
+    public Dropdown matDropdown;
+    public Dropdown texDropdown;
 
     private Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
     private Dictionary<string, Material> materials = new Dictionary<string, Material>();
     private Dictionary<string, GameObject> meshes = new Dictionary<string, GameObject>();
+
+    private Dictionary<string, GameObject> cachedObjects = new Dictionary<string, GameObject>();
+    private GameObject activeMesh = null;
+    private Vector3 meshPos = new Vector3(0.0f, -.8f, 4.0f);
 
 
     public override void setupGui()
@@ -52,11 +56,54 @@ public class MeshEditor : BaseEditor
             }
         }
 
-
-        this.meshDropdown.GetComponent<Dropdown>().AddOptions(meshStrs);
-        this.matDropdown.GetComponent<Dropdown>().AddOptions(matStrs);
-        this.texDropdown.GetComponent<Dropdown>().AddOptions(texStrs);
+        this.meshDropdown.AddOptions(meshStrs);
+        this.meshDropdown.onValueChanged.AddListener(delegate{
+            this.onMeshSelection(this.meshDropdown);
+        });
+        this.matDropdown.AddOptions(matStrs);
+        this.texDropdown.AddOptions(texStrs);
     }
+
+
+    private void onMeshSelection(Dropdown dropdown)
+    {
+        // hide the old mesh
+        string selectedMesh = this.meshDropdown.captionText.text;
+        GameObject mesh;
+
+        Debug.LogFormat("LOOKING FOR {0}", selectedMesh);
+        // is this cached already? just set active
+        if (this.cachedObjects.ContainsKey(selectedMesh))
+        {
+            mesh = this.cachedObjects[selectedMesh];
+        } else
+        {
+            GameObject meshTemplate = this.meshes[selectedMesh];
+            mesh = Object.Instantiate(meshTemplate, meshPos, Quaternion.identity) as GameObject;
+            this.cachedObjects.Add(selectedMesh, mesh);
+        }
+
+        mesh.SetActive(true);
+        if (activeMesh != null)
+        {
+            Debug.LogFormat("turning off active mesh {0}", activeMesh.name);
+            activeMesh.SetActive(false);
+        }
+        activeMesh = mesh;
+        Debug.LogFormat("ACTIVE MESH {0}", activeMesh.name);
+    }
+
+    private void onMatSelection()
+    {
+
+    }
+
+    private void onTexSelection()
+    {
+
+
+    }
+
 
     // Start is called before the first frame update
     void Start()
