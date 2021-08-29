@@ -28,7 +28,7 @@ public class TransformEditor : BaseEditor
         }
     }
 
-    public void setupDefaultVals()
+    public void setupDefaultVecs()
     {
         if(posEdit != null)
         {

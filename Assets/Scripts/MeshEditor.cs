@@ -23,7 +23,7 @@ public class MeshEditor : TransformEditor
     public void setupDefaults()
     {
        onMeshSelection(meshDropdown);
-       setupDefaultVals();
+       setupDefaultVecs();
     }
 
     public override void setupGui()

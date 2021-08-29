@@ -8,7 +8,6 @@ public class LightEditor : TransformEditor
 {
     public Dropdown typeDropdown;
     public InputField intensityEdit;
-    public InputField multiplierEdit;
 
     public GameObject rangeLayout;
     public GameObject angleLayout;
@@ -20,6 +19,7 @@ public class LightEditor : TransformEditor
     private List<GameObject> extraFields;
     private Dictionary<string, List<GameObject>> typeFields;
     private List<string> lightTypes;
+    private Light editLight;
 
 
     public override void setupGui()
@@ -37,9 +37,30 @@ public class LightEditor : TransformEditor
         typeDropdown.AddOptions(lightTypes);
         typeDropdown.onValueChanged.AddListener(delegate{onTypeChange(typeDropdown);});
 
+        // setup all the input field callbacks
+        intensityEdit.onValueChanged.AddListener(delegate {onIntensityChange();});
+        rangeEdit.onValueChanged.AddListener(delegate {onRangeChange();});
+        innerAngleEdit.onValueChanged.AddListener(delegate {onInnerAngleChange();});
+        outerAngleEdit.onValueChanged.AddListener(delegate {onOuterAngleChange();});
+
+        // find the light the user will edit
         modeTransform = GameObject.FindWithTag("EditableLight").transform;
-        setupDefaultVals();
+        editLight = modeTransform.GetComponent<Light>();
         base.setupGui();
+
+        setupUiDefaults();
+    }
+
+    private void setupUiDefaults()
+    {
+        // set up the pos/rot defaults
+        setupDefaultVecs();
+
+        // set up the other field defaults
+        intensityEdit.text = editLight.intensity.ToString();
+        rangeEdit.text = editLight.range.ToString();
+        innerAngleEdit.text = editLight.innerSpotAngle.ToString();
+        outerAngleEdit.text = editLight.spotAngle.ToString();
     }
 
     private void onTypeChange(Dropdown dropdown)
@@ -52,5 +73,28 @@ public class LightEditor : TransformEditor
             bool isNeeded = extraElems.Contains(uiElem);
             uiElem.SetActive(isNeeded);
         }
+
+        editLight.type = (LightType)System.Enum.Parse(typeof(LightType), selectedType);
+    }
+
+    private void onIntensityChange()
+    {
+        editLight.intensity = float.Parse(intensityEdit.text);
+    }
+
+    private void onRangeChange()
+    {
+        editLight.range = float.Parse(rangeEdit.text);
+    }
+
+    private void onInnerAngleChange()
+    {
+        editLight.innerSpotAngle = float.Parse(innerAngleEdit.text);
+
+    }
+
+    private void onOuterAngleChange()
+    {
+        editLight.spotAngle = float.Parse(outerAngleEdit.text);
     }
 }
