@@ -428,7 +428,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 3833856233587983419, guid: 2df34248686cd024f8f2d0e7a8062117, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 11
     m_FontStyle: 0
     m_BestFit: 0
@@ -861,7 +861,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 3833856233587983419, guid: 2df34248686cd024f8f2d0e7a8062117, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 11
     m_FontStyle: 0
     m_BestFit: 0
@@ -1323,7 +1323,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 3833856233587983419, guid: 2df34248686cd024f8f2d0e7a8062117, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 11
     m_FontStyle: 0
     m_BestFit: 0
@@ -2174,7 +2174,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 3833856233587983419, guid: 2df34248686cd024f8f2d0e7a8062117, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
@@ -2319,7 +2319,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 3833856233587983419, guid: 2df34248686cd024f8f2d0e7a8062117, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
@@ -2398,7 +2398,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 3833856233587983419, guid: 2df34248686cd024f8f2d0e7a8062117, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
@@ -2720,11 +2720,11 @@ MonoBehaviour:
   scaleEdit: {fileID: 0}
   typeDropdown: {fileID: 3406282760171957418}
   intensityEdit: {fileID: 8967958536739297826}
-  rangeLayout: {fileID: 1605335197791297568}
-  angleLayout: {fileID: 8821846326419182727}
   rangeEdit: {fileID: 7318013413283011101}
   innerAngleEdit: {fileID: 8821846324980592206}
   outerAngleEdit: {fileID: 8821846324919029700}
+  rangeLayout: {fileID: 1605335197791297568}
+  angleLayout: {fileID: 8821846326419182727}
 --- !u!1 &8967958535383808398
 GameObject:
   m_ObjectHideFlags: 0
@@ -3396,6 +3396,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4981700787891120450, guid: 2da48ea8c1410b4438c536d4b17a02d8, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 4981700787891120450, guid: 2da48ea8c1410b4438c536d4b17a02d8, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 10
       objectReference: {fileID: 0}
@@ -3652,6 +3656,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Rotation:'
       objectReference: {fileID: 0}
+    - target: {fileID: 4981700787891120450, guid: 2da48ea8c1410b4438c536d4b17a02d8, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 4981700787891120450, guid: 2da48ea8c1410b4438c536d4b17a02d8, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 10

@@ -82,12 +82,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3316e2da6c66137438d4bfc87fd4ced8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshDropdown: {fileID: 4922961517040470141}
-  matDropdown: {fileID: 438534976787761936}
-  texDropdown: {fileID: 438534975399417809}
   posEdit: {fileID: 386692571756836637}
   rotEdit: {fileID: 4647504399098285274}
   scaleEdit: {fileID: 4647504399401884902}
+  meshDropdown: {fileID: 4922961517040470141}
+  matDropdown: {fileID: 438534976787761936}
+  texDropdown: {fileID: 438534975399417809}
 --- !u!1 &1684563634874910357
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +242,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Material:'
       objectReference: {fileID: 0}
+    - target: {fileID: 5304706781666222577, guid: 32db8b7677015764790871f2d360d897, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 5945286013010282537, guid: 32db8b7677015764790871f2d360d897, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -491,6 +495,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Rotation:'
       objectReference: {fileID: 0}
+    - target: {fileID: 4981700787891120450, guid: 2da48ea8c1410b4438c536d4b17a02d8, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 4981700787891120451, guid: 2da48ea8c1410b4438c536d4b17a02d8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -756,6 +764,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Scale:      '
       objectReference: {fileID: 0}
+    - target: {fileID: 4981700787891120450, guid: 2da48ea8c1410b4438c536d4b17a02d8, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 4981700787891120451, guid: 2da48ea8c1410b4438c536d4b17a02d8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -929,6 +941,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Texture:'
       objectReference: {fileID: 0}
+    - target: {fileID: 5304706781666222577, guid: 32db8b7677015764790871f2d360d897, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 5945286013010282537, guid: 32db8b7677015764790871f2d360d897, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1178,6 +1194,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Position:'
       objectReference: {fileID: 0}
+    - target: {fileID: 4981700787891120450, guid: 2da48ea8c1410b4438c536d4b17a02d8, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 4981700787891120451, guid: 2da48ea8c1410b4438c536d4b17a02d8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1347,6 +1367,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5304706781666222577, guid: 32db8b7677015764790871f2d360d897, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 5945286013010282537, guid: 32db8b7677015764790871f2d360d897, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
