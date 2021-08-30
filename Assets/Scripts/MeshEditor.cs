@@ -112,6 +112,7 @@ public class MeshEditor : TransformEditor
         }
         activeMesh = mesh;
         modeTransform = activeMesh.transform;
+        Debug.LogFormat("SET MODE TRANSFORM {0}", modeTransform.position.z);
 
         onMatSelection(matDropdown);
     }

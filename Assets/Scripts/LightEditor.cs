@@ -46,6 +46,7 @@ public class LightEditor : TransformEditor
         // find the light the user will edit
         modeTransform = GameObject.FindWithTag("EditableLight").transform;
         editLight = modeTransform.GetComponent<Light>();
+        
         base.setupGui();
 
         setupUiDefaults();

@@ -32,17 +32,17 @@ public class TransformEditor : BaseEditor
     {
         if(posEdit != null)
         {
-            posEdit.setValues(transform.position);
+            posEdit.setValues(modeTransform.position);
         }
 
        if(rotEdit != null)
         {
-            rotEdit.setValues(transform.eulerAngles);
+            rotEdit.setValues(modeTransform.eulerAngles);
         }
         
         if(scaleEdit != null)
         {
-            scaleEdit.setValues(transform.localScale);
+            scaleEdit.setValues(modeTransform.localScale);
         }
     }
 
