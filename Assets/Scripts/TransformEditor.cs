@@ -30,6 +30,7 @@ public class TransformEditor : BaseEditor
 
     public void setupDefaultVecs()
     {
+        // init the transform UI with the transform's current values
         if(posEdit != null)
         {
             posEdit.setValues(modeTransform.position);

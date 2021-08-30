@@ -20,12 +20,12 @@ public class ModeManager : MonoBehaviour
         public GameObject guiPrefab;
     }
 
-
     private Dictionary<GameObject, GameObject> modeGuis = new Dictionary<GameObject, GameObject>();
 
 
     void Start()
     {
+        // go through each mode, generate a button/gui prefab for it
         foreach(ModeSpecs spec in modeList)
         {  
             // setup the mode button
@@ -51,8 +51,8 @@ public class ModeManager : MonoBehaviour
 
     void onBtnClick()
     {
-        GameObject clickedBtn = EventSystem.current.currentSelectedGameObject;
         // hide/unhide the active gui based on the clicked button
+        GameObject clickedBtn = EventSystem.current.currentSelectedGameObject;
         foreach(var item in modeGuis)
         {
             if (item.Key == clickedBtn)

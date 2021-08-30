@@ -15,24 +15,21 @@ public class CamEditor : BaseEditor
     private Camera cam;
     private string orthoText = "Ortho";
 
-    void Start()
-    {
+    public override void setupGui()
+    {   
         cam = Camera.main;
         camObj = cam.gameObject;
 
+        // add listeners for all of the gui elements
+        projDropdown.onValueChanged.AddListener(delegate{onProjectionChange(projDropdown);});
+        fovSlider.onValueChanged.AddListener(delegate {onFovChange();});
+        nearClipEdit.onValueChanged.AddListener(delegate {onNearClipChange();});
+        farClipEdit.onValueChanged.AddListener(delegate {onFarClipChange();});
+
+        // setup default ui values
         nearClipEdit.text = cam.nearClipPlane.ToString();
         farClipEdit.text = cam.farClipPlane.ToString();
-    }
-
-    public override void setupGui()
-    {   
-        this.projDropdown.onValueChanged.AddListener(delegate{
-            this.onProjectionChange(this.projDropdown);
-        });
-
-        fovSlider.onValueChanged.AddListener(delegate {onFovChange();});
-        nearClipEdit.onValueChanged.AddListener(delegate {onNearClipChange(); });
-        farClipEdit.onValueChanged.AddListener(delegate {onFarClipChange(); });
+        fovSlider.value = cam.fieldOfView;
     }
 
     private void onProjectionChange(Dropdown dropdown) 
@@ -50,11 +47,24 @@ public class CamEditor : BaseEditor
 
     private void onNearClipChange()
     {
-        cam.nearClipPlane = float.Parse(nearClipEdit.text);
+        string val = nearClipEdit.text;
+        if(validateInput(val))
+        {
+            cam.nearClipPlane = float.Parse(val);
+        }
     }
 
     private void onFarClipChange()
     {
-        cam.farClipPlane = float.Parse(farClipEdit.text);
+        string val = farClipEdit.text;
+        if(validateInput(val))
+        {
+            cam.farClipPlane = float.Parse(val);
+        }
+    }
+
+    private bool validateInput(string input)
+    {
+        return float.TryParse(input, out _);
     }
 }

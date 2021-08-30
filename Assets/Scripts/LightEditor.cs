@@ -8,13 +8,12 @@ public class LightEditor : TransformEditor
 {
     public Dropdown typeDropdown;
     public InputField intensityEdit;
-
-    public GameObject rangeLayout;
-    public GameObject angleLayout;
-
     public InputField rangeEdit;
     public InputField innerAngleEdit;
     public InputField outerAngleEdit;
+
+    public GameObject rangeLayout;
+    public GameObject angleLayout;
 
     private List<GameObject> extraFields;
     private Dictionary<string, List<GameObject>> typeFields;
@@ -24,6 +23,7 @@ public class LightEditor : TransformEditor
 
     public override void setupGui()
     {   
+        // populate the mode-specific gui options
         extraFields = new List<GameObject>(){rangeLayout, angleLayout};
         typeFields = new Dictionary<string, List<GameObject>>() 
         {
@@ -31,9 +31,9 @@ public class LightEditor : TransformEditor
             {"Directional", new List<GameObject>()},
             {"Point", new List<GameObject>(){rangeLayout}}
         };
-        lightTypes = new List<string>(typeFields.Keys);
 
         // set up the type dropdown        
+        lightTypes = new List<string>(typeFields.Keys);
         typeDropdown.AddOptions(lightTypes);
         typeDropdown.onValueChanged.AddListener(delegate{onTypeChange(typeDropdown);});
 
@@ -47,13 +47,9 @@ public class LightEditor : TransformEditor
         modeTransform = GameObject.FindWithTag("EditableLight").transform;
         editLight = modeTransform.GetComponent<Light>();
         
+        // Set up the transform editing delegates
         base.setupGui();
 
-        setupUiDefaults();
-    }
-
-    private void setupUiDefaults()
-    {
         // set up the pos/rot defaults
         setupDefaultVecs();
 
@@ -66,7 +62,7 @@ public class LightEditor : TransformEditor
 
     private void onTypeChange(Dropdown dropdown)
     {
-        // based on the mode selected
+        // enable/disable ui elements based on the light type selected
         string selectedType = dropdown.captionText.text;
         List<GameObject> extraElems = typeFields[selectedType];
         foreach(GameObject uiElem in extraFields)
@@ -80,22 +76,42 @@ public class LightEditor : TransformEditor
 
     private void onIntensityChange()
     {
-        editLight.intensity = float.Parse(intensityEdit.text);
+        string val = intensityEdit.text;
+        if(validateInput(val))
+        {
+            editLight.intensity = float.Parse(val);
+        }
     }
 
     private void onRangeChange()
     {
-        editLight.range = float.Parse(rangeEdit.text);
+        string val = rangeEdit.text;
+        if(validateInput(val))
+        {
+            editLight.range = float.Parse(val);
+        }
     }
 
     private void onInnerAngleChange()
     {
-        editLight.innerSpotAngle = float.Parse(innerAngleEdit.text);
-
+        string val = innerAngleEdit.text;
+        if(validateInput(val))
+        {
+            editLight.innerSpotAngle = float.Parse(val);
+        }
     }
 
     private void onOuterAngleChange()
     {
-        editLight.spotAngle = float.Parse(outerAngleEdit.text);
+        string val = outerAngleEdit.text;
+        if(validateInput(val))
+        {
+            editLight.spotAngle = float.Parse(val);
+        }
+    }
+    
+    private bool validateInput(string input)
+    {
+        return float.TryParse(input, out _);
     }
 }

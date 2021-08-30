@@ -13,14 +13,6 @@ public class VecEditor : MonoBehaviour
     public delegate void VecChangedDelegate(Vector3 vec);
     public VecChangedDelegate vecEditDel;
     
-    
-    public void setValues(Vector3 vec)
-    {
-        xEdit.text = vec.x.ToString();
-        yEdit.text = vec.y.ToString();
-        zEdit.text = vec.z.ToString();
-    }
-
     void Start()
     {
         xEdit.onValueChanged.AddListener(delegate {onEdit(); });
@@ -28,9 +20,17 @@ public class VecEditor : MonoBehaviour
         zEdit.onValueChanged.AddListener(delegate {onEdit(); });
     }
 
+    public void setValues(Vector3 vec)
+    {
+        // populate the component fields with vec3
+        xEdit.text = vec.x.ToString();
+        yEdit.text = vec.y.ToString();
+        zEdit.text = vec.z.ToString();
+    }
+
     private void onEdit()
     {
-        // query up all the values and return a vec 3 to those who care
+        // query up all the values and call the edit del
         string x =  xEdit.text;
         string y =  yEdit.text;
         string z =  zEdit.text;

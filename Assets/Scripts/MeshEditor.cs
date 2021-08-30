@@ -14,25 +14,21 @@ public class MeshEditor : TransformEditor
     private Dictionary<string, Material> materials = new Dictionary<string, Material>();
     private Dictionary<string, GameObject> meshes = new Dictionary<string, GameObject>();
 
-    private Vector3 meshPos = new Vector3(0.0f, -.8f, 3.0f);
+    private Vector3 meshPos = new Vector3(0.0f, -.5f, 3.0f);
     private Dictionary<string, GameObject> cachedObjects = new Dictionary<string, GameObject>();
     private Material activeMat;
     private GameObject activeMesh;
 
 
-    public void setupDefaults()
-    {
-       onMeshSelection(meshDropdown);
-       setupDefaultVecs();
-    }
-
     public override void setupGui()
     {   
-        // populate the asset dropdowns
+        // populate the asset dropdowns -- please excuse my code duplication
+        // i know it's bad
         Object[] texObjs = Resources.LoadAll("FreeSwords/Textures", typeof(Texture2D));
         List<string> texStrs = new List<string>();
         foreach (Object tex in texObjs)
         {   
+            // filter out any textures not containing key words
             bool pickableTexs = tex.name.Contains("Albedo") || tex.name.Contains("Metal");
             if(!textures.ContainsKey(tex.name) && pickableTexs)
             {
@@ -58,62 +54,71 @@ public class MeshEditor : TransformEditor
         {
             if(!meshes.ContainsKey(mesh.name))
             {
+                // remove the fbx suffix from the mesh name
                 string meshName = mesh.name.Replace("_FBX", "");
                 meshes.Add(meshName, (GameObject)mesh);
                 meshStrs.Add(meshName);    
             }
         }
 
-        // setup callbacks for the asset dropdowns
+        // Sort up those dropdown options! Doesn't handle the numbers well.. TODO!
         matStrs.Sort();
+        matDropdown.AddOptions(matStrs);
         meshStrs.Sort();
-        texStrs.Sort();
         meshDropdown.AddOptions(meshStrs);
+        texStrs.Sort();
+        texDropdown.AddOptions(texStrs);
+
+        // setup callbacks for the asset dropdowns
         meshDropdown.onValueChanged.AddListener(delegate{
             onMeshSelection(meshDropdown);
         });
-        matDropdown.AddOptions(matStrs);
         matDropdown.onValueChanged.AddListener(delegate{
             onMatSelection(matDropdown);
         });
-
         texDropdown.onValueChanged.AddListener(delegate{
             onTexSelection(texDropdown);
         });
     
-        texDropdown.AddOptions(texStrs);
+        // Spawn the default options so the user has something to look at
+        onMeshSelection(meshDropdown);
 
-        setupDefaults();
+        // Popualte the vec fields with the default transform's values
+        setupDefaultVecs();
+
+        // Sets up the transform edit delegate schtuff
         base.setupGui();
     }
 
-
     private void onMeshSelection(Dropdown dropdown)
     {
-        // hide the old mesh
         string selectedMesh = dropdown.captionText.text;
         GameObject mesh;
 
-        // is this cached already? just set active
+        // if we've already spawned the mesh, get a ref to it
         if (cachedObjects.ContainsKey(selectedMesh))
         {
             mesh = cachedObjects[selectedMesh];
-        } else
+        } 
+        else
         {
+            // if not, spawn it and cache it
             GameObject meshTemplate = meshes[selectedMesh];
             mesh = Object.Instantiate(meshTemplate, meshPos, Quaternion.identity) as GameObject;
             cachedObjects.Add(selectedMesh, mesh);
         }
 
+        // enable the selected mesh and disable the old
         mesh.SetActive(true);
         if (activeMesh != null)
         {
             activeMesh.SetActive(false);
         }
         activeMesh = mesh;
+        // need to update this for the transform editors!
         modeTransform = activeMesh.transform;
-        Debug.LogFormat("SET MODE TRANSFORM {0}", modeTransform.position.z);
 
+        // if there's a new mesh, the mat must be re-applied
         onMatSelection(matDropdown);
     }
 
@@ -121,10 +126,7 @@ public class MeshEditor : TransformEditor
     {
         string selectedMat = dropdown.captionText.text;
         Material mat = materials[selectedMat];
-        if (activeMesh != null)
-        {
-            activeMesh.GetComponent<MeshRenderer>().material = mat;
-        }
+        activeMesh.GetComponent<MeshRenderer>().material = mat;
         activeMat = mat;
         onTexSelection(texDropdown);
     }
@@ -132,13 +134,6 @@ public class MeshEditor : TransformEditor
     private void onTexSelection(Dropdown dropdown)
     {
         string selectedText = dropdown.captionText.text;
-        Texture2D texture = textures[selectedText];
-        
-        if (activeMesh != null)
-        {
-            Material material = activeMesh.GetComponent<MeshRenderer>().material;
-            material.mainTexture = texture;
-
-        }
+        activeMat.mainTexture = textures[selectedText];
     }
 }
